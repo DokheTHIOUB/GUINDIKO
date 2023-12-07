@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('telephone');
             $table->string('email'); 
             $table->string('password');
-            $table->enum('evenement',['eleve','etudiant','professionnel','diplomé']);
+            $table->enum('statut',['eleve','etudiant','professionnel','diplomé']);
             $table->timestamps();
         });
     }
