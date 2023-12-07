@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('mentores', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('telephone');
-            $table->string('email'); 
+            $table->string('email');
+            $table->string('numero_de_telephone');
+            $table->enum('statut',['eleve','etudiant','professionnel','jeune_diplome']);
             $table->string('password');
-            $table->enum('evenement',['eleve','etudiant','professionnel','diplomé']);
+
             $table->timestamps();
         });
     }
