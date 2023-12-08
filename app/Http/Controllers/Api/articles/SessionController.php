@@ -15,13 +15,22 @@ class SessionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = Session::query();
+        $search = $request->input('search');
+
+        if($search){
+            $query->whereRaw("mentor LIKE '%". $search . "%'");
+        }
+        $total= $query->count();
+
         return response()->json([
             'status_code'=>200,
-            'status_message'=>'la session a été supprimé',
+            'status_message'=>'la liste de tous les enregistrements',
             'data'=>Session::all(),
-        ]);;
+            'total session'=>$total
+        ]);
     }
 
     /**
@@ -130,6 +139,61 @@ class SessionController extends Controller
         return response()->json($e);
     }
        
+}
+
+
+
+public function nombreTotalSession()
+{
+   
+    try {
+        
+        $totalSession = Session::count();
+    
+ 
+    return response()->json([
+        'status_code' => 200,
+        'status_message' => 'Le nombre total de session',
+        'data' => [
+            'NombreTotalSession' => $totalSession,
+        ]
+    ]);
+        
+    } catch (Exception $e) {
+        return response()->json($e);
+    }
+
+
+}
+
+public function archive(Session $session)
+{
+    $session->update(['archives' => true]);
+
+    return response()->json(['message' => 'les données du session ont été archivés']);
+}
+
+public function desarchive(Session $session)
+{
+    $session->update(['archives' => false]);
+
+    return response()->json(['message' => 'les données du session sont plus archivés']);
+}
+
+
+public function compteSessionNonArchives()
+{
+    $nombreSessionNonArchives = Session::where('archives', false)->count();
+
+    return response()->json(['nombre_utilisateurs_non_archives' => $nombreSessionNonArchives]);
+}
+
+
+public function compterSessionsArchives()
+{
+    $nombreSessionsArchives = Session::where('archives', true)->count();
+
+    return response()->json(['nombre_utilisateurs_archives' => $nombreSessionsArchives]);
 }
 }
     

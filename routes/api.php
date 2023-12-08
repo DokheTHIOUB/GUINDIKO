@@ -15,6 +15,23 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('mentore',[MentoreController::class,'index']);
 
+//archivage
+
+Route::patch('/mentore/archive/{mentore}', [MentoreController::class, 'archive']);
+Route::patch('/posts/desarchive/{mentore}', [MentoreController::class, 'desarchive']);
+
+//détails mentor
+
+Route::get('mentore/{mentore}', [MentoreController::class, 'show']);
+
+
+//liste non archivés
+Route::get('compter-utilisateurs-non-archives', [MentoreController::class, 'compterUtilisateursNonArchives']);
+
+//liste archivé
+Route::get('compter-utilisateurs-archives', [MentoreController::class, 'compterUtilisateursArchives']);
+
+
 
 //SESSIONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 
@@ -31,21 +48,6 @@ Route::put('session/update/{session}',[SessionController::class,'update']);
 Route::delete('session/delete/{session}',[SessionController::class,'destroy']);
 
 
-//archivage
-
-Route::patch('/mentore/archive/{mentore}', [MentoreController::class, 'archive']);
-Route::patch('/posts/desarchive/{mentore}', [MentoreController::class, 'desarchive']);
-
-//détails mentor
-
-Route::get('mentore/{mentore}', [MentoreController::class, 'show']);
-
-
-//liste non archivés
-Route::get('compter-utilisateurs-non-archives', [MentoreController::class, 'compterUtilisateursNonArchives']);
-
-//liste archivé
-Route::get('compter-utilisateurs-archives', [MentoreController::class, 'compterUtilisateursArchives']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
