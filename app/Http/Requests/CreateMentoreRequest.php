@@ -60,7 +60,6 @@ class CreateMentorRequest extends FormRequest
 
         'numero_de_telephone.required' => 'Le numéro de téléphone doit être fourni',
         'numero_de_telephone.string' => 'Le numéro de téléphone doit être une chaîne de caractères',
-        //'numero_de_telephone.regex' => 'Le numéro de téléphone doit commencer par +221 suivi de 77, 78, 70, 76 ou 75 et être suivi de 9 chiffres',
 
         'statut.required' => 'Le statut doit être fourni',
         'statut.in' => 'Le statut doit être l\'un des suivants : eleve, etudiant, professionnel, diplome',
