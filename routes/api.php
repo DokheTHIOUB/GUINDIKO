@@ -14,6 +14,42 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::get('mentore',[MentoreController::class,'index']);
+
+//archivage
+
+Route::patch('/mentore/archive/{mentore}', [MentoreController::class, 'archive']);
+Route::patch('/posts/desarchive/{mentore}', [MentoreController::class, 'desarchive']);
+
+//détails mentor
+
+Route::get('mentore/{mentore}', [MentoreController::class, 'show']);
+
+
+//liste non archivés
+Route::get('compter-utilisateurs-non-archives', [MentoreController::class, 'compterUtilisateursNonArchives']);
+
+//liste archivé
+Route::get('compter-utilisateurs-archives', [MentoreController::class, 'compterUtilisateursArchives']);
+
+
+
+//SESSIONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+
+Route::get('session',[SessionController::class,'index']);
+
+//ajouter session
+Route::post('session/store',[SessionController::class,'store']);
+
+//modifier une session
+
+Route::put('session/update/{session}',[SessionController::class,'update']);
+
+//Supprimer une session
+Route::delete('session/delete/{session}',[SessionController::class,'destroy']);
+
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

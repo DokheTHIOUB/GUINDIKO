@@ -12,13 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sessions', function (Blueprint $table) {
-            $table->id(); 
-            $table->unsignedBigInteger('mentors_id');
-            $table->unsignedBigInteger('mentores_id');
-            $table->date('date_evenement');
-            $table->string('lieu'); 
-            $table->string('theme_evenement');
-            $table->timestamps(); 
+            $table->id();
+            $table->date('date');
+            $table->string('lien_google_meet');
+            $table->string('theme');
+           
+            $table->timestamps();
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sesions');
+        Schema::dropIfExists('sessions');
     }
 };
