@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class CreateArticleRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class CreateArticleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -19,10 +21,36 @@ class CreateArticleRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
     public function rules(): array
     {
         return [
-            //
+            'libelle' => 'required',
+            'description' => 'required',
+            'debouche' => 'required',
+            'image' => 'required|image|max:10000',
+        ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'error' => true,
+            'message' => 'erreur de validation',
+            'errorLists' => $validator->errors(),
+        ]));
+    }
+
+    public function messages()
+    {
+        return [
+            'libelle.required' => 'le libelle doit être fourni',
+            'decription.required' => 'la description doit être fourni',
+            'debouche.required' => 'le debouche doit être fourni',
+            'image.required' => 'l\'image doit être fourni',
+            'image.image' => 'Seul les images sont autorisés',
+            'image.max' => 'La taille de l\'image est trop grand 50 mo max',
         ];
     }
 }
